@@ -24,5 +24,31 @@ head = {
         }
 
 res = requests.get(url, headers=head)
-errmsg = re.findall(r'errmsg":"(.*?)"', res.text)[0]
-print(errmsg)
+
+
+
+jsonshopping = json.loads(res.text)
+try:
+        # 得到商品名字
+        # name = re.findall(r'name":"(.*?)",', res.text)[0]
+        name = jsonshopping['data']['name']
+        # 得到商品规格
+        # spec = re.findall(r'spec":"(.*?)",', res.text)[0]
+        spec = jsonshopping['data']['spec']
+        # 得到商品当前价格
+        # price = re.findall(r'price":(.*?),', res.text)[0]
+        price = jsonshopping['data']['price']
+        price = str(int(price) / 100)
+
+        # 得到商品市场价格
+        # market_price = re.findall(r'market_price":(.*?),', res.text)[0]
+        market_price = jsonshopping['data']['market_price']
+        market_price = str(int(market_price) / 100)
+
+        # 得到商品市场详细信息
+        # share_content = re.findall(r'share_content":"(.*?)",', res.text)[0]
+        share_content = jsonshopping['data']['share_content']
+
+except:
+    errmsg = re.findall(r'errmsg":"(.*?)"', res.text)[0]
+    print(errmsg)
