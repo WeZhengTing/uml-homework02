@@ -16,9 +16,25 @@ def request_url(userName):
     href = re.findall(r'href="/collection(.*?)"', res.text)
     for i in range(0, len(name)):
         print("收藏夹名："+name[i])
-        url_collection = 'https://www.zhihu.com/collection'
-        url_collection = url_collection + href[i]
-        print(url_collection)
+        href_head = 'https://www.zhihu.com/api/v4/collections'
+        #构造子链接
+        url_collection = href_head +href[i]+'/items?offset=0&limit=20'
+        sonTitleAndUrlByHref(url_collection)
+
+#通过子链接得到子文件的链接与标题
+def sonTitleAndUrlByHref(href):
+    try:
+        head = {
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0'
+        }
+        res = requests.get(href, headers=head)
+        titlesAndUrl = re.findall(r'NORMAL",(.*?)","question', res.text)
+        for i in range(0,len(titlesAndUrl)):
+            url=re.findall(r'rl":"(.*?)","created_time',titlesAndUrl[i])
+            title = re.findall(r'title":"(.*)', titlesAndUrl[i])
+            print(title+url)
+    except:
+        return 0
 
 
 if __name__ == '__main__':
