@@ -30,9 +30,12 @@ def sonTitleAndUrlByHref(href):
         res = requests.get(href, headers=head)
         titlesAndUrl = re.findall(r'NORMAL",(.*?)","question', res.text)
         for i in range(0,len(titlesAndUrl)):
+            #得到链接
             url=re.findall(r'rl":"(.*?)","created_time',titlesAndUrl[i])
+            #得到标题
             title = re.findall(r'title":"(.*)', titlesAndUrl[i])
             print(title+url)
+
     except:
         return 0
 
