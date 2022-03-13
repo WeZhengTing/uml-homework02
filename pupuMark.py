@@ -55,7 +55,6 @@ def pupuMessage(productId):
         errmsg = re.findall(r'errmsg":"(.*?)"', res.text)[0]
         print(errmsg)
 
-
 def now_price(productId):
     try:
         while (1):
@@ -70,7 +69,7 @@ def now_price(productId):
             price = str(int(price) / 100)
             nowTimeAndPrint = strftime('%Y' + '-' + '%m' + '-' + '%d' + ' %H:%M,价格为' + price)
             print(nowTimeAndPrint)
-            sleep(3)
+            sleep(6)
 
     except:
         print("进程结束")
