@@ -67,8 +67,10 @@ def now_price(productId):
             res = requests.get(url, headers=head)
             price = re.findall(r'price":(.*?),', res.text)[0]
             price = str(int(price) / 100)
+            #获取时间
             nowTimeAndPrint = strftime('%Y' + '-' + '%m' + '-' + '%d' + ' %H:%M,价格为' + price)
             print(nowTimeAndPrint)
+            #休眠6秒
             sleep(6)
 
     except:
