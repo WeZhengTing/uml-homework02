@@ -57,27 +57,26 @@ def pupuMessage(productId):
 
 
 def now_price(productId):
+    try:
+        while (1):
+            url = "https://j1.pupuapi.com/client/product/storeproduct/detail/" + productId
 
-    url = "https://j1.pupuapi.com/client/product/storeproduct/detail/" + productId
+            head = {
+                # headerUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'
+            }
+            res = requests.get(url, headers=head)
+            price = re.findall(r'price":(.*?),', res.text)[0]
+            price = str(int(price) / 100)
+            nowTimeAndPrint = strftime('%Y' + '-' + '%m' + '-' + '%d' + ' %H:%M,价格为' + price)
+            print(nowTimeAndPrint)
+            sleep(3)
 
-    head = {
-        # headerUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'
-    }
-    res = requests.get(url, headers=head)
-    price = re.findall(r'price":(.*?),', res.text)[0]
-    price = str(int(price) / 100)
-    nowTimeAndPrint = strftime('%Y' + '-' + '%m' + '-' + '%d' + ' %H:%M,价格为' + price)
-    print(nowTimeAndPrint)
+    except:
+        print("进程结束")
 
 
 if __name__ == '__main__':
     productId = "7c1208da-907a-4391-9901-35a60096a3f9/44e7652b-a90e-4328-a89f-74471de7e218"
     pupuMessage(productId)
-    try:
-        while (1):
-            now_price(productId)
-            sleep(3)
-
-    except:
-        print("进程结束")
+    now_price(productId)
