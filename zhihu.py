@@ -34,6 +34,7 @@ def sonTitleAndUrlByHref(href):
             url=re.findall(r'rl":"(.*?)","created_time',titlesAndUrl[i])
             #得到标题
             title = re.findall(r'title":"(.*)', titlesAndUrl[i])
+
             print(title+url)
 
     except:
